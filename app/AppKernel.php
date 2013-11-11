@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Tipddy\TipddySurveyBundle\TipddyTipddySurveyBundle(),
             new Tipddy\SurveyBundle\TipddySurveyBundle(),
+            new Tipddy\SecurityBundle\TipddySecurityBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

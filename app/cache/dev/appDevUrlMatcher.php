@@ -133,6 +133,28 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // login
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'login');
+            }
+
+            return array (  '_controller' => 'Tipddy\\SecurityBundle\\Controller\\DefaultController::loginAction',  '_route' => 'login',);
+        }
+
+        if (0 === strpos($pathinfo, '/log')) {
+            // login_check
+            if ($pathinfo === '/login_check') {
+                return array('_route' => 'login_check');
+            }
+
+            // login_logout
+            if ($pathinfo === '/logout') {
+                return array('_route' => 'login_logout');
+            }
+
+        }
+
         // tipddy_tipddy_survey_homepage
         if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'tipddy_tipddy_survey_homepage')), array (  '_controller' => 'Tipddy\\TipddySurveyBundle\\Controller\\DefaultController::indexAction',));
