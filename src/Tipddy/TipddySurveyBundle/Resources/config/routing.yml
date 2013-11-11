@@ -1,0 +1,3 @@
+tipddy_tipddy_survey_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: TipddyTipddySurveyBundle:Default:index }
