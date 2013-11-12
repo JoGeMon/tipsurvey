@@ -133,6 +133,20 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // tipddy_survey_homepage
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'tipddy_survey_homepage')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\DefaultController::indexAction',));
+        }
+
+        // dashboard
+        if (rtrim($pathinfo, '/') === '/dashboard') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'dashboard');
+            }
+
+            return array (  '_controller' => 'Tipddy\\BackendBundle\\Controller\\DefaultController::indexAction',  '_route' => 'dashboard',);
+        }
+
         // login
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
@@ -153,11 +167,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array('_route' => 'login_logout');
             }
 
-        }
-
-        // tipddy_tipddy_survey_homepage
-        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'tipddy_tipddy_survey_homepage')), array (  '_controller' => 'Tipddy\\TipddySurveyBundle\\Controller\\DefaultController::indexAction',));
         }
 
         // _welcome

@@ -552,23 +552,20 @@ class appDevDebugProjectContainer extends Container
         $c = new \Doctrine\Common\Cache\ArrayCache();
         $c->setNamespace('sf2orm_default_6097c9d2d1c4d61f440b78f47602c179');
 
-        $d = new \Doctrine\ORM\Mapping\Driver\DriverChain();
-        $d->addDriver(new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($this->get('annotation_reader'), array(0 => 'C:\\xampp\\htdocs\\tipsurvey\\src\\Tipddy\\SurveyBundle\\Entity')), 'Tipddy\\SurveyBundle\\Entity');
+        $d = new \Doctrine\ORM\Configuration();
+        $d->setEntityNamespaces(array());
+        $d->setMetadataCacheImpl($a);
+        $d->setQueryCacheImpl($b);
+        $d->setResultCacheImpl($c);
+        $d->setMetadataDriverImpl(new \Doctrine\ORM\Mapping\Driver\DriverChain());
+        $d->setProxyDir('C:/xampp/htdocs/tipsurvey/app/cache/dev/doctrine/orm/Proxies');
+        $d->setProxyNamespace('Proxies');
+        $d->setAutoGenerateProxyClasses(true);
+        $d->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
+        $d->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
+        $d->setNamingStrategy(new \Doctrine\ORM\Mapping\DefaultNamingStrategy());
 
-        $e = new \Doctrine\ORM\Configuration();
-        $e->setEntityNamespaces(array('TipddySurveyBundle' => 'Tipddy\\SurveyBundle\\Entity'));
-        $e->setMetadataCacheImpl($a);
-        $e->setQueryCacheImpl($b);
-        $e->setResultCacheImpl($c);
-        $e->setMetadataDriverImpl($d);
-        $e->setProxyDir('C:/xampp/htdocs/tipsurvey/app/cache/dev/doctrine/orm/Proxies');
-        $e->setProxyNamespace('Proxies');
-        $e->setAutoGenerateProxyClasses(true);
-        $e->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
-        $e->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
-        $e->setNamingStrategy(new \Doctrine\ORM\Mapping\DefaultNamingStrategy());
-
-        $this->services['doctrine.orm.default_entity_manager'] = $instance = call_user_func(array('Doctrine\\ORM\\EntityManager', 'create'), $this->get('doctrine.dbal.default_connection'), $e);
+        $this->services['doctrine.orm.default_entity_manager'] = $instance = call_user_func(array('Doctrine\\ORM\\EntityManager', 'create'), $this->get('doctrine.dbal.default_connection'), $d);
 
         $this->get('doctrine.orm.default_manager_configurator')->configure($instance);
 
@@ -1805,7 +1802,7 @@ class appDevDebugProjectContainer extends Container
         $j = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($i, array('always_use_default_target_path' => true, 'default_target_path' => '/dashboard', 'login_path' => 'login', 'target_path_parameter' => '_target_path', 'use_referer' => false));
         $j->setProviderKey('admin');
 
-        return $this->services['security.firewall.map.context.admin'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($h, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.default_provider')), 'admin', $a, $c), 2 => new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $i, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($i, 'login'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => 'login_logout')), 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $i, 'admin', $j, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $i, array('login_path' => 'login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => 'login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '52815c9a1764a', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $h, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $i, 'admin', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $i, 'login', false), NULL, NULL, $a));
+        return $this->services['security.firewall.map.context.admin'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($h, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.default_provider')), 'admin', $a, $c), 2 => new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $i, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($i, 'login'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => 'login_logout')), 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $i, 'admin', $j, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $i, array('login_path' => 'login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => 'login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '528174ac5f871', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $h, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $i, 'admin', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $i, 'login', false), NULL, NULL, $a));
     }
 
     /**
@@ -2833,9 +2830,9 @@ class appDevDebugProjectContainer extends Container
         $instance->addPath('C:\\xampp\\htdocs\\tipsurvey\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\TwigBundle/Resources/views', 'Twig');
         $instance->addPath('C:\\xampp\\htdocs\\tipsurvey\\vendor\\symfony\\swiftmailer-bundle\\Symfony\\Bundle\\SwiftmailerBundle/Resources/views', 'Swiftmailer');
         $instance->addPath('C:\\xampp\\htdocs\\tipsurvey\\vendor\\doctrine\\doctrine-bundle\\Doctrine\\Bundle\\DoctrineBundle/Resources/views', 'Doctrine');
-        $instance->addPath('C:\\xampp\\htdocs\\tipsurvey\\src\\Tipddy\\TipddySurveyBundle/Resources/views', 'TipddyTipddySurvey');
-        $instance->addPath('C:\\xampp\\htdocs\\tipsurvey\\src\\Tipddy\\SurveyBundle/Resources/views', 'TipddySurvey');
         $instance->addPath('C:\\xampp\\htdocs\\tipsurvey\\src\\Tipddy\\SecurityBundle/Resources/views', 'TipddySecurity');
+        $instance->addPath('C:\\xampp\\htdocs\\tipsurvey\\src\\Tipddy\\BackendBundle/Resources/views', 'TipddyBackend');
+        $instance->addPath('C:\\xampp\\htdocs\\tipsurvey\\src\\Tipddy\\SurveyBundle/Resources/views', 'TipddySurvey');
         $instance->addPath('C:\\xampp\\htdocs\\tipsurvey\\src\\Acme\\DemoBundle/Resources/views', 'AcmeDemo');
         $instance->addPath('C:\\xampp\\htdocs\\tipsurvey\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/views', 'WebProfiler');
         $instance->addPath('C:\\xampp\\htdocs\\tipsurvey\\vendor\\sensio\\distribution-bundle\\Sensio\\Bundle\\DistributionBundle/Resources/views', 'SensioDistribution');
@@ -3089,7 +3086,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.default_provider'), new \Symfony\Component\Security\Core\User\UserChecker(), 'admin', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('52815c9a1764a')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.default_provider'), new \Symfony\Component\Security\Core\User\UserChecker(), 'admin', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('528174ac5f871')), true);
 
         $instance->setEventDispatcher($this->get('event_dispatcher'));
 
@@ -3286,9 +3283,9 @@ class appDevDebugProjectContainer extends Container
                 'AsseticBundle' => 'Symfony\\Bundle\\AsseticBundle\\AsseticBundle',
                 'DoctrineBundle' => 'Doctrine\\Bundle\\DoctrineBundle\\DoctrineBundle',
                 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle',
-                'TipddyTipddySurveyBundle' => 'Tipddy\\TipddySurveyBundle\\TipddyTipddySurveyBundle',
-                'TipddySurveyBundle' => 'Tipddy\\SurveyBundle\\TipddySurveyBundle',
                 'TipddySecurityBundle' => 'Tipddy\\SecurityBundle\\TipddySecurityBundle',
+                'TipddyBackendBundle' => 'Tipddy\\BackendBundle\\TipddyBackendBundle',
+                'TipddySurveyBundle' => 'Tipddy\\SurveyBundle\\TipddySurveyBundle',
                 'AcmeDemoBundle' => 'Acme\\DemoBundle\\AcmeDemoBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',

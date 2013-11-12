@@ -16,9 +16,9 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Tipddy\TipddySurveyBundle\TipddyTipddySurveyBundle(),
-            new Tipddy\SurveyBundle\TipddySurveyBundle(),
             new Tipddy\SecurityBundle\TipddySecurityBundle(),
+            new Tipddy\BackendBundle\TipddyBackendBundle(),
+            new Tipddy\SurveyBundle\TipddySurveyBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
