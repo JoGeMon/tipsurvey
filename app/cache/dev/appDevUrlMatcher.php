@@ -133,9 +133,124 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // tipddy_survey_homepage
-        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'tipddy_survey_homepage')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\DefaultController::indexAction',));
+        if (0 === strpos($pathinfo, '/survey')) {
+            // survey
+            if (rtrim($pathinfo, '/') === '/survey') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'survey');
+                }
+
+                return array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\SurveyController::indexAction',  '_route' => 'survey',);
+            }
+
+            // survey_show
+            if (preg_match('#^/survey/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'survey_show')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\SurveyController::showAction',));
+            }
+
+            // survey_new
+            if ($pathinfo === '/survey/new') {
+                return array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\SurveyController::newAction',  '_route' => 'survey_new',);
+            }
+
+            // survey_create
+            if ($pathinfo === '/survey/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_survey_create;
+                }
+
+                return array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\SurveyController::createAction',  '_route' => 'survey_create',);
+            }
+            not_survey_create:
+
+            // survey_edit
+            if (preg_match('#^/survey/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'survey_edit')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\SurveyController::editAction',));
+            }
+
+            // survey_update
+            if (preg_match('#^/survey/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_survey_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'survey_update')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\SurveyController::updateAction',));
+            }
+            not_survey_update:
+
+            // survey_delete
+            if (preg_match('#^/survey/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_survey_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'survey_delete')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\SurveyController::deleteAction',));
+            }
+            not_survey_delete:
+
+        }
+
+        if (0 === strpos($pathinfo, '/question')) {
+            // question
+            if (rtrim($pathinfo, '/') === '/question') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'question');
+                }
+
+                return array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\QuestionController::indexAction',  '_route' => 'question',);
+            }
+
+            // question_show
+            if (preg_match('#^/question/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'question_show')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\QuestionController::showAction',));
+            }
+
+            // question_new
+            if ($pathinfo === '/question/new') {
+                return array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\QuestionController::newAction',  '_route' => 'question_new',);
+            }
+
+            // question_create
+            if ($pathinfo === '/question/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_question_create;
+                }
+
+                return array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\QuestionController::createAction',  '_route' => 'question_create',);
+            }
+            not_question_create:
+
+            // question_edit
+            if (preg_match('#^/question/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'question_edit')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\QuestionController::editAction',));
+            }
+
+            // question_update
+            if (preg_match('#^/question/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_question_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'question_update')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\QuestionController::updateAction',));
+            }
+            not_question_update:
+
+            // question_delete
+            if (preg_match('#^/question/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_question_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'question_delete')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\QuestionController::deleteAction',));
+            }
+            not_question_delete:
+
         }
 
         // dashboard

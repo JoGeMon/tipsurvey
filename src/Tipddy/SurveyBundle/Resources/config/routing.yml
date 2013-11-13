@@ -1,7 +1,7 @@
 TipddySurveyBundle_survey:
-    resource: "@TipddySurveyBundle/Resource/config/routing/survey.yml"
+    resource: "@TipddySurveyBundle/Resources/config/routing/survey.yml"
     prefix: /survey
 
 TipddySurveyBundle_question:
-    resource: "@TipddySurveyBundle/Resource/config/routing/question.yml"
+    resource: "@TipddySurveyBundle/Resources/config/routing/question.yml"
     prefix: /question
