@@ -63,4 +63,9 @@ class AnswerType
     {
         return $this->etiqueta;
     }
+
+    public function __toString()
+    {
+        return $this->getEtiqueta();    
+    }
 }

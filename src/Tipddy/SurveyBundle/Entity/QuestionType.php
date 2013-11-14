@@ -60,4 +60,9 @@ class QuestionType
     {
         return $this->etiqueta;
     }
+
+    public function __toString()
+    {
+        return $this->getEtiqueta();    
+    }
 }

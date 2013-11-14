@@ -19,10 +19,16 @@ class QuestionType extends AbstractType
             ->add('description')
             ->add('randomOrder')
             ->add('questionRequired')
-            ->add('survey')
+            //->add('survey')
             ->add('questionType')
             ->add('answerType')
-        ;
+            ->add('answers','collection',array(
+                'type' => new AnswerType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'required' => true,
+                'by_reference' => false
+            ));
     }
     
     /**
