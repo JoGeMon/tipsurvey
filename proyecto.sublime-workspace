@@ -3,10 +3,50 @@
 	{
 		"selected_items":
 		[
+			[
+				"th",
+				"this"
+			],
+			[
+				"na",
+				"namespace"
+			],
+			[
+				"S",
+				"SurveyBundle"
+			],
+			[
+				"Ans",
+				"answerType"
+			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "src/Tipddy/SurveyBundle/Entity/AnswerType.php",
+			"settings":
+			{
+				"buffer_size": 1120,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Tipddy/SurveyBundle/Form/AnswerType.php",
+			"settings":
+			{
+				"buffer_size": 960,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Tipddy/SurveyBundle/Form/QuestionType.php",
+			"settings":
+			{
+				"buffer_size": 1333,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -32,15 +72,31 @@
 	},
 	"file_history":
 	[
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Question/edit.html.twig",
+		"/C/xampp/htdocs/tipsurvey/app/Resources/views/base.html.twig",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/Question.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Question/include/form-data-prototype-text.html.twig",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/Answer.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/Survey.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Question/new.html.twig",
+		"/C/xampp/htdocs/tipsurvey/web/bundles/tipddysurvey/js/embed-answers.js",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Question/index.html.twig",
+		"/C/xampp/htdocs/tipsurvey/app/config/routing.yml",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Controller/SurveyController.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Form/AnswerType.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Form/QuestionType.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/QuestionType.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/AnswerType.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/config/routing.yml",
 		"/C/xampp/htdocs/tipsurvey/ya po"
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
 		]
@@ -50,6 +106,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Constraint"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -67,8 +124,93 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/Tipddy/SurveyBundle/Entity/AnswerType.php",
+					"settings":
+					{
+						"buffer_size": 1120,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/Tipddy/SurveyBundle/Form/AnswerType.php",
+					"settings":
+					{
+						"buffer_size": 960,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Tipddy/SurveyBundle/Form/QuestionType.php",
+					"settings":
+					{
+						"buffer_size": 1333,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								868,
+								868
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -78,7 +220,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 31.0
 	},
 	"layout":
 	{

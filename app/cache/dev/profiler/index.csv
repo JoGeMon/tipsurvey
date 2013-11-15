@@ -283,3 +283,8 @@ e4ae6e,::1,GET,http://localhost/tipsurvey/web/app_dev.php/question/new,138438882
 78fae3,::1,GET,http://localhost/tipsurvey/web/app_dev.php/question/3/edit,1384388902,
 af17fa,::1,DELETE,http://localhost/tipsurvey/web/app_dev.php/question/3/delete,1384388906,
 463ce3,::1,GET,http://localhost/tipsurvey/web/app_dev.php/question/,1384388909,
+aa05a0,::1,GET,http://localhost/tipsurvey/web/app_dev.php/,1384549964,
+42f8ab,::1,POST,http://localhost/tipsurvey/web/app_dev.php/login_check,1384550254,
+1f051d,::1,GET,http://localhost/tipsurvey/web/app_dev.php/dashboard,1384550255,
+64f9fe,::1,GET,http://localhost/tipsurvey/web/app_dev.php/dashboard/,1384550256,
+be49b6,::1,GET,http://localhost/tipsurvey/web/app_dev.php/survey/,1384550260,
