@@ -182,14 +182,8 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             // survey_delete
             if (preg_match('#^/survey/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
-                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
-                    $allow = array_merge($allow, array('POST', 'DELETE'));
-                    goto not_survey_delete;
-                }
-
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'survey_delete')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\SurveyController::deleteAction',));
             }
-            not_survey_delete:
 
         }
 
@@ -281,6 +275,66 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             if ($pathinfo === '/logout') {
                 return array('_route' => 'login_logout');
             }
+
+        }
+
+        if (0 === strpos($pathinfo, '/user')) {
+            // user
+            if (rtrim($pathinfo, '/') === '/user') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'user');
+                }
+
+                return array (  '_controller' => 'Tipddy\\SecurityBundle\\Controller\\UserController::indexAction',  '_route' => 'user',);
+            }
+
+            // user_show
+            if (preg_match('#^/user/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_show')), array (  '_controller' => 'Tipddy\\SecurityBundle\\Controller\\UserController::showAction',));
+            }
+
+            // user_new
+            if ($pathinfo === '/user/new') {
+                return array (  '_controller' => 'Tipddy\\SecurityBundle\\Controller\\UserController::newAction',  '_route' => 'user_new',);
+            }
+
+            // user_create
+            if ($pathinfo === '/user/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_user_create;
+                }
+
+                return array (  '_controller' => 'Tipddy\\SecurityBundle\\Controller\\UserController::createAction',  '_route' => 'user_create',);
+            }
+            not_user_create:
+
+            // user_edit
+            if (preg_match('#^/user/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_edit')), array (  '_controller' => 'Tipddy\\SecurityBundle\\Controller\\UserController::editAction',));
+            }
+
+            // user_update
+            if (preg_match('#^/user/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_user_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_update')), array (  '_controller' => 'Tipddy\\SecurityBundle\\Controller\\UserController::updateAction',));
+            }
+            not_user_update:
+
+            // user_delete
+            if (preg_match('#^/user/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_user_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_delete')), array (  '_controller' => 'Tipddy\\SecurityBundle\\Controller\\UserController::deleteAction',));
+            }
+            not_user_delete:
 
         }
 

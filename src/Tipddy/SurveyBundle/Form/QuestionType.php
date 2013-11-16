@@ -30,7 +30,7 @@ class QuestionType extends AbstractType
                 'by_reference' => false
             ));
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

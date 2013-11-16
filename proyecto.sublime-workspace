@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"User",
+				"UserInterface"
+			],
+			[
+				"tit",
+				"setTitle"
+			],
+			[
+				"t",
+				"title"
+			],
+			[
+				"Surve",
+				"SurveyBundle"
+			],
+			[
+				"sl",
+				"slug"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
 				"th",
 				"this"
 			],
@@ -23,39 +47,15 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/Tipddy/SurveyBundle/Entity/AnswerType.php",
-			"settings":
-			{
-				"buffer_size": 1120,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Tipddy/SurveyBundle/Form/AnswerType.php",
-			"settings":
-			{
-				"buffer_size": 960,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Tipddy/SurveyBundle/Form/QuestionType.php",
-			"settings":
-			{
-				"buffer_size": 1333,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 0.0,
+		"height": 392.0,
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 392.0
 	},
 	"console":
 	{
@@ -72,22 +72,39 @@
 	},
 	"file_history":
 	[
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SecurityBundle/Entity/User.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SecurityBundle/Entity/Role.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/BackendBundle/Resources/config/routing.yml",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SecurityBundle/Resources/config/routing.yml",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SecurityBundle/Form/UserType.php",
+		"/C/xampp/htdocs/tipsurvey/app/config/security.yml",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/Answer.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/Survey.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SecurityBundle/Entity/UserRepository.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/BackendBundle/Resources/views/includes/main-menu.html.twig",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/BackendBundle/Twig/Extension/UtilExtension.php",
+		"/C/xampp/htdocs/tipsurvey/app/config/config.yml",
+		"/C/xampp/htdocs/tipsurvey/app/config/services.yml",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Controller/SurveyController.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/config/routing/survey.yml",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Survey/index.html.twig",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/BackendBundle/util/util.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/config/routing.yml",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Form/QuestionType.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Form/AnswerType.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/AnswerType.php",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Survey/show.html.twig",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Survey/edit.html.twig",
+		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Survey/new.html.twig",
 		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Question/edit.html.twig",
 		"/C/xampp/htdocs/tipsurvey/app/Resources/views/base.html.twig",
 		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/Question.php",
 		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Question/include/form-data-prototype-text.html.twig",
-		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/Answer.php",
-		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/Survey.php",
 		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Question/new.html.twig",
 		"/C/xampp/htdocs/tipsurvey/web/bundles/tipddysurvey/js/embed-answers.js",
 		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/views/Question/index.html.twig",
 		"/C/xampp/htdocs/tipsurvey/app/config/routing.yml",
-		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Controller/SurveyController.php",
-		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Form/AnswerType.php",
-		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Form/QuestionType.php",
 		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/QuestionType.php",
-		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Entity/AnswerType.php",
-		"/C/xampp/htdocs/tipsurvey/src/Tipddy/SurveyBundle/Resources/config/routing.yml",
 		"/C/xampp/htdocs/tipsurvey/ya po"
 	],
 	"find":
@@ -96,7 +113,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 90.0,
+		"height": 0.0,
 		"where_history":
 		[
 		]
@@ -106,6 +123,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Assert",
+			"Ass",
 			"Constraint"
 		],
 		"highlight": true,
@@ -124,93 +143,8 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/Tipddy/SurveyBundle/Entity/AnswerType.php",
-					"settings":
-					{
-						"buffer_size": 1120,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/Tipddy/SurveyBundle/Form/AnswerType.php",
-					"settings":
-					{
-						"buffer_size": 960,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/Tipddy/SurveyBundle/Form/QuestionType.php",
-					"settings":
-					{
-						"buffer_size": 1333,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								868,
-								868
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],

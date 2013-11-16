@@ -522,6 +522,15 @@
     </parameter>
   </parameters>
   <services>
+    <service id="twig.extension.text" class="Twig_Extensions_Extension_Text">
+      <tag name="twig.extension"/>
+    </service>
+    <service id="twig.extension.debug" class="Twig_Extensions_Extension_Debug">
+      <tag name="twig.extension"/>
+    </service>
+    <service id="twig.extension.tipsurvey" class="Tipddy\BackendBundle\Twig\Extension\UtilExtension">
+      <tag name="twig.extension"/>
+    </service>
     <service id="controller_name_converter" class="Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser" public="false">
       <tag name="monolog.logger" channel="request"/>
       <argument type="service" id="kernel"/>
@@ -1529,7 +1538,7 @@
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider" public="false">
-            <argument type="service" id="security.user.provider.concrete.default_provider"/>
+            <argument type="service" id="security.user.provider.concrete.chain_provider"/>
             <argument type="service">
               <service class="Symfony\Component\Security\Core\User\UserChecker" public="false"/>
             </argument>
@@ -1540,7 +1549,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>528178f03fa7c</argument>
+            <argument>5286c2ee28045</argument>
           </service>
         </argument>
       </argument>
@@ -1621,7 +1630,13 @@
       <tag name="templating.helper" alias="security"/>
       <argument type="service" id="security.context" on-invalid="ignore"/>
     </service>
-    <service id="security.user.provider.concrete.default_provider" class="Symfony\Component\Security\Core\User\InMemoryUserProvider" public="false">
+    <service id="security.user.provider.concrete.chain_provider" class="Symfony\Component\Security\Core\User\ChainUserProvider" public="false">
+      <argument type="collection">
+        <argument type="service" id="security.user.provider.concrete.in_memory"/>
+        <argument type="service" id="security.user.provider.concrete.user_db"/>
+      </argument>
+    </service>
+    <service id="security.user.provider.concrete.in_memory" class="Symfony\Component\Security\Core\User\InMemoryUserProvider" public="false">
       <call method="createUser">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\User\User" public="false">
@@ -1644,6 +1659,12 @@
           </service>
         </argument>
       </call>
+    </service>
+    <service id="security.user.provider.concrete.user_db" class="Symfony\Bridge\Doctrine\Security\User\EntityUserProvider" public="false">
+      <argument type="service" id="doctrine"/>
+      <argument>Tipddy\SecurityBundle\Entity\User</argument>
+      <argument>email</argument>
+      <argument>null</argument>
     </service>
     <service id="security.firewall.map.context.admin" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
       <argument type="collection">
@@ -1678,7 +1699,9 @@
           <service class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
             <argument type="service" id="security.context"/>
             <argument type="collection">
-              <argument type="service" id="security.user.provider.concrete.default_provider"/>
+              <argument type="service" id="security.user.provider.concrete.chain_provider"/>
+              <argument type="service" id="security.user.provider.concrete.in_memory"/>
+              <argument type="service" id="security.user.provider.concrete.user_db"/>
             </argument>
             <argument>admin</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
@@ -1714,7 +1737,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener" public="false">
-            <tag name="security.remember_me_aware" id="admin" provider="security.user.provider.concrete.default_provider"/>
+            <tag name="security.remember_me_aware" id="admin" provider="security.user.provider.concrete.chain_provider"/>
             <argument type="service" id="security.context"/>
             <argument type="service" id="security.authentication.manager"/>
             <argument type="service">
@@ -1784,7 +1807,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>528178f03fa7c</argument>
+            <argument>5286c2ee28045</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -1854,6 +1877,15 @@
         <argument key="charset">UTF-8</argument>
         <argument key="paths" type="collection"/>
       </argument>
+      <call method="addExtension">
+        <argument type="service" id="twig.extension.text"/>
+      </call>
+      <call method="addExtension">
+        <argument type="service" id="twig.extension.debug"/>
+      </call>
+      <call method="addExtension">
+        <argument type="service" id="twig.extension.tipsurvey"/>
+      </call>
       <call method="addExtension">
         <argument type="service">
           <service class="Symfony\Bundle\SecurityBundle\Twig\Extension\LogoutUrlExtension" public="false">
@@ -1943,13 +1975,6 @@
                 <argument type="service" id="form.csrf_provider" on-invalid="null"/>
               </service>
             </argument>
-          </service>
-        </argument>
-      </call>
-      <call method="addExtension">
-        <argument type="service">
-          <service class="Twig_Extension_Debug" public="false">
-            <tag name="twig.extension"/>
           </service>
         </argument>
       </call>
@@ -2183,6 +2208,7 @@
         <service class="Doctrine\ORM\Configuration" public="false">
           <call method="setEntityNamespaces">
             <argument type="collection">
+              <argument key="TipddySecurityBundle">Tipddy\SecurityBundle\Entity</argument>
               <argument key="TipddySurveyBundle">Tipddy\SurveyBundle\Entity</argument>
             </argument>
           </call>
@@ -2221,6 +2247,19 @@
                     <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
                       <argument type="service" id="annotation_reader"/>
                       <argument type="collection">
+                        <argument>C:\xampp\htdocs\tipsurvey\src\Tipddy\SecurityBundle\Entity</argument>
+                        <argument>C:\xampp\htdocs\tipsurvey\src\Tipddy\SurveyBundle\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Tipddy\SecurityBundle\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>C:\xampp\htdocs\tipsurvey\src\Tipddy\SecurityBundle\Entity</argument>
                         <argument>C:\xampp\htdocs\tipsurvey\src\Tipddy\SurveyBundle\Entity</argument>
                       </argument>
                     </service>
@@ -2584,6 +2623,14 @@
     </service>
     <service id="security.encoder_factory" class="Symfony\Component\Security\Core\Encoder\EncoderFactory">
       <argument type="collection">
+        <argument key="Tipddy\SecurityBundle\Entity\User" type="collection">
+          <argument key="class">%security.encoder.digest.class%</argument>
+          <argument key="arguments" type="collection">
+            <argument>sha512</argument>
+            <argument>true</argument>
+            <argument>10</argument>
+          </argument>
+        </argument>
         <argument key="Symfony\Component\Security\Core\User\User" type="collection">
           <argument key="class">%security.encoder.plain.class%</argument>
           <argument key="arguments" type="collection">

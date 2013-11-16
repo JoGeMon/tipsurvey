@@ -30,4 +30,42 @@ class AnswerType
      private $etiqueta;    
     
     
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set etiqueta
+     *
+     * @param string $etiqueta
+     * @return AnswerType
+     */
+    public function setEtiqueta($etiqueta)
+    {
+        $this->etiqueta = $etiqueta;
+    
+        return $this;
+    }
+
+    /**
+     * Get etiqueta
+     *
+     * @return string 
+     */
+    public function getEtiqueta()
+    {
+        return $this->etiqueta;
+    }
+
+    public function __toString()
+    {
+        return $this->getEtiqueta();    
+    }
 }

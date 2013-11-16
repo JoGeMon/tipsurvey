@@ -3,7 +3,9 @@
 namespace Tipddy\SurveyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraint as Assert;
 
+use Tipddy\BackendBundle\util\Util;
 /**
  * Survey
  *
@@ -34,6 +36,11 @@ class Survey
         */
       protected $description;
 
+       /**
+       * @ORM\Column(name="slug", type="string", length=255, nullable=false)
+       */
+      protected $slug;
+
 
     /**
      * Get id
@@ -54,6 +61,7 @@ class Survey
     public function setTitle($title)
     {
         $this->title = $title;
+        $this->slug = Util::getSlug($title);
     
         return $this;
     }

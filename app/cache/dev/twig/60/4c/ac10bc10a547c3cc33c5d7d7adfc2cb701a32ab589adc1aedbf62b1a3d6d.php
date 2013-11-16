@@ -7,16 +7,16 @@ class __TwigTemplate_604cac10bc10a547c3cc33c5d7d7adfc2cb701a32ab589adc1aedbf62b1
     {
         parent::__construct($env);
 
-        $this->parent = $this->env->loadTemplate("::base.html.twig");
+        $this->parent = $this->env->loadTemplate("TipddyBackendBundle::layout.html.twig");
 
         $this->blocks = array(
-            'body' => array($this, 'block_body'),
+            'content' => array($this, 'block_content'),
         );
     }
 
     protected function doGetParent(array $context)
     {
-        return "::base.html.twig";
+        return "TipddyBackendBundle::layout.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())
@@ -25,60 +25,73 @@ class __TwigTemplate_604cac10bc10a547c3cc33c5d7d7adfc2cb701a32ab589adc1aedbf62b1
     }
 
     // line 3
-    public function block_body($context, array $blocks = array())
+    public function block_content($context, array $blocks = array())
     {
         // line 4
-        echo "<h1>Survey</h1>
-
-    <table class=\"record_properties\">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>";
+        echo "<fieldset>
+      <legend>Mostrando Encuesta</legend>
+      ";
+        // line 6
+        echo $this->getAttribute($this, "fieldReadText", array(0 => "title", 1 => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "title"), 2 => "Título"), "method");
+        echo "
+      ";
+        // line 7
+        echo $this->getAttribute($this, "fieldReadText", array(0 => "description", 1 => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "description"), 2 => "Descripción"), "method");
+        echo "      
+    </fieldset>
+    <p id=\"nav\">
+    <a href=\"";
         // line 10
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"), "html", null, true);
-        echo "</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>";
-        // line 14
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "title"), "html", null, true);
-        echo "</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>";
-        // line 18
-        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "description"), "html", null, true);
-        echo "</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class=\"record_actions\">
-    <li>
-        <a href=\"";
-        // line 25
         echo $this->env->getExtension('routing')->getPath("survey");
-        echo "\">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href=\"";
-        // line 30
+        echo "\">Volver a listado</a>
+    |
+    <a href=\"";
+        // line 12
         echo twig_escape_filter($this->env, $this->env->getExtension('routing')->getPath("survey_edit", array("id" => $this->getAttribute((isset($context["entity"]) ? $context["entity"] : $this->getContext($context, "entity")), "id"))), "html", null, true);
-        echo "\">
-            Edit
-        </a>
-    </li>
-    <li>";
-        // line 34
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["delete_form"]) ? $context["delete_form"] : $this->getContext($context, "delete_form")), 'form');
-        echo "</li>
-</ul>
+        echo "\">Editar</a>
+    |
+    <a href=\"#\">Borrar</a>
+    </p>
 ";
+    }
+
+    // line 18
+    public function getfieldReadText($_element = null, $_value = null, $_label = null)
+    {
+        $context = $this->env->mergeGlobals(array(
+            "element" => $_element,
+            "value" => $_value,
+            "label" => $_label,
+        ));
+
+        $blocks = array();
+
+        ob_start();
+        try {
+            // line 19
+            echo "      <div class=\"\">
+          <label for=\"tipddy_surveybundle_show_";
+            // line 20
+            echo twig_escape_filter($this->env, (isset($context["element"]) ? $context["element"] : $this->getContext($context, "element")), "html", null, true);
+            echo "\">";
+            echo twig_escape_filter($this->env, (isset($context["label"]) ? $context["label"] : $this->getContext($context, "label")), "html", null, true);
+            echo "</label>
+          
+          <div class=\"field-wrapper\">
+            ";
+            // line 23
+            echo twig_escape_filter($this->env, (isset($context["value"]) ? $context["value"] : $this->getContext($context, "value")), "html", null, true);
+            echo "
+          </div>
+    </div>
+";
+        } catch (Exception $e) {
+            ob_end_clean();
+
+            throw $e;
+        }
+
+        return ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
     }
 
     public function getTemplateName()
@@ -93,6 +106,6 @@ class __TwigTemplate_604cac10bc10a547c3cc33c5d7d7adfc2cb701a32ab589adc1aedbf62b1
 
     public function getDebugInfo()
     {
-        return array (  78 => 34,  71 => 30,  63 => 25,  53 => 18,  46 => 14,  39 => 10,  31 => 4,  28 => 3,);
+        return array (  83 => 23,  75 => 20,  72 => 19,  59 => 18,  50 => 12,  45 => 10,  39 => 7,  35 => 6,  31 => 4,  28 => 3,);
     }
 }

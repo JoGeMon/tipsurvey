@@ -1,0 +1,15 @@
+services:
+    Twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+    Twig.extension.debug:
+        class: Twig_Extensions_Extension_Debug
+        tags:
+            - { name: twig.extension }
+
+    Twig.extension.tipsurvey:
+        class: Tipddy\BackendBundle\Twig\Extension\UtilExtension
+        tags:
+            - { name: twig.extension }
