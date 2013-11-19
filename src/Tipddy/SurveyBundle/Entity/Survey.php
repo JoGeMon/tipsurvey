@@ -98,4 +98,27 @@ class Survey
     {
         return $this->description;
     }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Survey
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 }

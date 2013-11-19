@@ -1,52 +1,112 @@
 <?php
-
 namespace Tipddy\SecurityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * User
+ * Tipddy\SecurityBundle\Entity\User
  *
  * @ORM\Table(name="tipsurvey_user")
  * @ORM\Entity
  */
-class User
-{
+ class User implements UserInterface, \Serializable
+ {
+	 /**
+	  * @var bigint $id
+	  *
+	  * @ORM\Column(name="id", type="bigint", nullable=false)
+	  * @ORM\Id
+	  * @ORM\GeneratedValue(strategy="IDENTITY")
+	  */
+	 private $id;
+	 
+	 /**
+	  * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
+	  *
+	  */
+	 private $firstName;
+	 
+	 /**
+	  * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
+	  *
+	  */
+	 private $lastName;
+	
+	 /**
+	  * @ORM\Column(name="email", type="string", length=255, unique=true)
+	  *
+	  */
+	 private $email;
+
+	 /**
+	  * @ORM\Column(name="password", type="string", length=255, nullable=false)
+	  *
+	  */
+	 private $password;
+
+	 /**
+	  * @ORM\Column(name="salt", type="string", length=255, nullable=true)
+	  *
+	  */
+	 private $salt;
+
+	 /**
+	  * @ORM\Column(name="address", type="string", length=255, nullable=true)
+	  *
+	  */
+	 private $address;
+	 
+	
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\ManyToMany(targetEntity="Role")
+     * @ORM\JoinTable(name="tipsurvey_user_role",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+	 *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+	 *      )
+	 */    
+	 private $userRoles;
+	 
+	 
+	 
+	 /**
+      * Método requerido por la interfaz UserInterface, se invoca cuando la aplicación desea borrar información sensible del usuario, por ejemplo contraseña, en la mayoría de las aplicaciones puede estar vacío
+      */
+    public function eraseCredentials()
+    {
+
+    }
+
+
+    /**
+     * Método requerido por la interfaz UserInterface, se invoca este método para obtener un array con todos los roles que posee.
      */
-    private $id;
+    public function getRoles()
+    {
+        return array('ROLE_USUARIO');
+    }
+
 
     /**
-    * @ORM\Column(name="firstName", type="string", length=50, nullable=false)
-    **/
-    private $firstName;
-
-    /**
-    * @ORM\Column(name="lastName", type="string", length=50, nullable=false)
-    **/
-    private $lastName;
-
-    /**
-    * @ORM\Column(name="mail", type="string", length=50, nullable=false)
-    **/
-    private $mail;
-
-    /**
-    * @ORM\Column(name="password", type="string", length=50, nullable=false)
-    **/
-    private $password;
-
-    /**
-    * @ORM\Column(name="salt", type="string", length=50, nullable=false)
-    **/
-    private $salt;
-
-
+     * Método requerido por la interfaz getUsername, se invoca para obtener el login o nombre de usuario que se utiliza para autenticar los usuarios.
+     */
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
+	 
+	 
+	 
+     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -104,26 +164,26 @@ class User
     }
 
     /**
-     * Set mail
+     * Set email
      *
-     * @param string $mail
+     * @param string $email
      * @return User
      */
-    public function setMail($mail)
+    public function setEmail($email)
     {
-        $this->mail = $mail;
+        $this->email = $email;
     
         return $this;
     }
 
     /**
-     * Get mail
+     * Get email
      *
      * @return string 
      */
-    public function getMail()
+    public function getEmail()
     {
-        return $this->mail;
+        return $this->email;
     }
 
     /**
@@ -171,4 +231,110 @@ class User
     {
         return $this->salt;
     }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return User
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Add userRoles
+     *
+     * @param \Tipddy\SecurityBundle\Entity\Role $userRoles
+     * @return User
+     */
+    public function addUserRole(\Tipddy\SecurityBundle\Entity\Role $userRoles)
+    {
+        $this->userRoles[] = $userRoles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove userRoles
+     *
+     * @param \Tipddy\SecurityBundle\Entity\Role $userRoles
+     */
+    public function removeUserRole(\Tipddy\SecurityBundle\Entity\Role $userRoles)
+    {
+        $this->userRoles->removeElement($userRoles);
+    }
+
+    /**
+     * Get userRoles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserRoles()
+    {
+        return $this->userRoles;
+    }
+
+
+  public function getTypeUser()
+    {
+        $typeRoles = $this->getRoles();
+        $textRoles = "";
+        foreach($typeRoles as $i => $typeRol)
+        {
+            if ($i > 0) 
+            {
+                $textRoles .= ","; 
+            }
+            $textRoles .= $typeRol; 
+        }
+         
+        return $textRoles;
+    } 
+
+    
+   public function serialize()
+    {
+        return serialize(array(
+        $this->id,
+        $this->firstName,
+        $this->lastName,
+        $this->email,
+        $this->password,
+        $this->salt,
+        $this->address, 
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+        $this->id,
+        $this->firstName,
+        $this->lastName,
+        $this->email,
+        $this->password,
+        $this->salt,
+        $this->address
+        ) = unserialize($serialized);
+    }
+
+    public function __toString()
+   {
+       return $this->getFirstName();
+   }
+
 }

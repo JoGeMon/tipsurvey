@@ -17,7 +17,10 @@ class __TwigTemplate_8ca56ab0469688dc242106079911aa691ffb7950c78b7adb67267063bf3
     {
         // line 1
         echo "|
-<span class=\"topBarElem\">!Hola, Rodrigo Miranda</span> |<span> Tipo Usuario: Admin</span> |<span> Organización:  Tipddy</span>
+<span class=\"topBarElem\">!Hola ";
+        // line 2
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user"), "html", null, true);
+        echo " </span> |<span> Tipo Usuario: </span> |<span> Organización:  Tipddy</span>
 <span class=\"topBarElem\">
  | <a href=\"";
         // line 4
@@ -38,6 +41,6 @@ class __TwigTemplate_8ca56ab0469688dc242106079911aa691ffb7950c78b7adb67267063bf3
 
     public function getDebugInfo()
     {
-        return array (  24 => 4,  19 => 1,  73 => 12,  68 => 11,  63 => 6,  57 => 5,  51 => 13,  46 => 11,  40 => 8,  33 => 6,  29 => 5,  23 => 1,  145 => 41,  140 => 37,  134 => 36,  125 => 55,  110 => 42,  108 => 41,  100 => 38,  98 => 37,  94 => 36,  88 => 34,  85 => 33,  83 => 32,  66 => 21,  58 => 15,  56 => 14,  50 => 11,  45 => 8,  42 => 7,  35 => 7,  32 => 3,  124 => 39,  103 => 39,  97 => 29,  91 => 35,  84 => 22,  80 => 21,  76 => 28,  70 => 19,  65 => 18,  48 => 12,  31 => 4,  28 => 3,);
+        return array (  27 => 4,  22 => 2,  19 => 1,);
     }
 }

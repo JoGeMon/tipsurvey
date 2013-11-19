@@ -12,66 +12,66 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="tipsurvey_user")
  * @ORM\Entity
  */
- class User implements UserInterface
+ class User implements UserInterface, \Serializable
  {
-     /**
-      * @var bigint $id
-      *
-      * @ORM\Column(name="id", type="bigint", nullable=false)
-      * @ORM\Id
-      * @ORM\GeneratedValue(strategy="IDENTITY")
-      */
-     private $id;
-     
-     /**
-      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
-      *
-      */
-     private $firstName;
-     
-     /**
-      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
-      *
-      */
-     private $lastName;
-    
-     /**
-      * @ORM\Column(name="email", type="string", length=255, unique=true)
-      *
-      */
-     private $email;
+	 /**
+	  * @var bigint $id
+	  *
+	  * @ORM\Column(name="id", type="bigint", nullable=false)
+	  * @ORM\Id
+	  * @ORM\GeneratedValue(strategy="IDENTITY")
+	  */
+	 private $id;
+	 
+	 /**
+	  * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
+	  *
+	  */
+	 private $firstName;
+	 
+	 /**
+	  * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
+	  *
+	  */
+	 private $lastName;
+	
+	 /**
+	  * @ORM\Column(name="email", type="string", length=255, unique=true)
+	  *
+	  */
+	 private $email;
 
-     /**
-      * @ORM\Column(name="password", type="string", length=255, nullable=false)
-      *
-      */
-     private $password;
+	 /**
+	  * @ORM\Column(name="password", type="string", length=255, nullable=false)
+	  *
+	  */
+	 private $password;
 
-     /**
-      * @ORM\Column(name="salt", type="string", length=255, nullable=true)
-      *
-      */
-     private $salt;
+	 /**
+	  * @ORM\Column(name="salt", type="string", length=255, nullable=true)
+	  *
+	  */
+	 private $salt;
 
-     /**
-      * @ORM\Column(name="address", type="string", length=255, nullable=true)
-      *
-      */
-     private $address;
-     
-    
+	 /**
+	  * @ORM\Column(name="address", type="string", length=255, nullable=true)
+	  *
+	  */
+	 private $address;
+	 
+	
     /**
      * @ORM\ManyToMany(targetEntity="Role")
      * @ORM\JoinTable(name="tipsurvey_user_role",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
-     *      )
-     */    
-     private $userRoles;
-     
-     
-     
-     /**
+	 *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+	 *      )
+	 */    
+	 private $userRoles;
+	 
+	 
+	 
+	 /**
       * Método requerido por la interfaz UserInterface, se invoca cuando la aplicación desea borrar información sensible del usuario, por ejemplo contraseña, en la mayoría de las aplicaciones puede estar vacío
       */
     public function eraseCredentials()
@@ -96,9 +96,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     {
         return $this->getEmail();
     }
-     
-     
-     
+	 
+	 
+	 
      /**
      * Constructor
      */
@@ -134,7 +134,7 @@ use Symfony\Component\Validator\Constraints as Assert;
      * Get firstName
      *
      * @return string 
-     **/
+     */
     public function getFirstName()
     {
         return $this->firstName;
@@ -287,4 +287,54 @@ use Symfony\Component\Validator\Constraints as Assert;
     {
         return $this->userRoles;
     }
+
+
+  public function getTypeUser()
+    {
+        $typeRoles = $this->getRoles();
+        $textRoles = "";
+        foreach($typeRoles as $i => $typeRol)
+        {
+            if ($i > 0) 
+            {
+                $textRoles .= ","; 
+            }
+            $textRoles .= $typeRol; 
+        }
+         
+        return $textRoles;
+    } 
+
+    
+   public function serialize()
+    {
+        return serialize(array(
+        $this->id,
+        $this->firstName,
+        $this->lastName,
+        $this->email,
+        $this->password,
+        $this->salt,
+        $this->address, 
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+        $this->id,
+        $this->firstName,
+        $this->lastName,
+        $this->email,
+        $this->password,
+        $this->salt,
+        $this->address
+        ) = unserialize($serialized);
+    }
+
+    public function __toString()
+   {
+       return $this->getFirstName();
+   }
+
 }
