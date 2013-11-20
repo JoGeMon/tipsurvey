@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Comment
  * @ORM\Table(name="tipsurvey_comment")
+ * @ORM\Entity
  */
 class Comment
 {
@@ -25,6 +26,24 @@ class Comment
       */
     private $description;
 
+/**
+    *
+    * @ORM\ManyToOne(targetEntity="Tipddy\SecurityBundle\Entity\User")
+    * @ORM\JoinColumns({
+    * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+    * })
+    */
+    private $user;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="commentType")
+     * @ORM\JoinColumns({
+     * @ORM\JoinColumn(name="commenttype_id",    referencedColumnName="id")
+     * })
+     */
+    private $typeComment;
+
 
     /**
      * Get id
@@ -36,23 +55,74 @@ class Comment
         return $this->id;
     }
     
+
+
     /**
-     * 
-     * @ORM\ManyToOne(targetEntity="commentType")
-     * @ORM\JoinColumns({
-     * @ORM\JoinColumn(name="commenttype_id",    referencedColumnName="id")
-     * })
+     * Set description
+     *
+     * @param string $description
+     * @return Comment
      */
-    private $typeComment;
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
 
     /**
-    *
-    * @ORM\ManyToOne(targetEntity="Tipddy\SecurityBundle\Entity\User")
-    * @ORM\JoinColumns({
-    * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-    * })
-    */
-    private $user;
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
+    /**
+     * Set user
+     *
+     * @param \Tipddy\SecurityBundle\Entity\User $user
+     * @return Comment
+     */
+    public function setUser(\Tipddy\SecurityBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
 
+    /**
+     * Get user
+     *
+     * @return \Tipddy\SecurityBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set typeComment
+     *
+     * @param \Tipddy\BackendBundle\Entity\commentType $typeComment
+     * @return Comment
+     */
+    public function setTypeComment(\Tipddy\BackendBundle\Entity\commentType $typeComment = null)
+    {
+        $this->typeComment = $typeComment;
+    
+        return $this;
+    }
+
+    /**
+     * Get typeComment
+     *
+     * @return \Tipddy\BackendBundle\Entity\commentType 
+     */
+    public function getTypeComment()
+    {
+        return $this->typeComment;
+    }
 }

@@ -334,7 +334,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
     public function __toString()
    {
-       return $this->getFirstName();
+       return $this->getFirstName()." ".$this->getLastName();
    }
 
 }

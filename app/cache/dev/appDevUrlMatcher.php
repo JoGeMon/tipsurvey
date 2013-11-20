@@ -256,6 +256,79 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Tipddy\\BackendBundle\\Controller\\DefaultController::indexAction',  '_route' => 'dashboard',);
         }
 
+        if (0 === strpos($pathinfo, '/comment')) {
+            if (0 === strpos($pathinfo, '/comment/sendinformation')) {
+                // comment_sendinformation
+                if ($pathinfo === '/comment/sendinformation') {
+                    return array (  '_controller' => 'Tipddy\\BackendBundle\\Controller\\DefaultController::sendinformationAction',  '_route' => 'comment_sendinformation',);
+                }
+
+                // comment_sendinformation_create
+                if ($pathinfo === '/comment/sendinformation/create') {
+                    return array (  '_controller' => 'Tipddy\\BackendBundle\\Controller\\DefaultController::createInformationAction',  '_route' => 'comment_sendinformation_create',);
+                }
+
+            }
+
+            // comment
+            if (rtrim($pathinfo, '/') === '/comment') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'comment');
+                }
+
+                return array (  '_controller' => 'TipddyBackendBundle:Comment:index',  '_route' => 'comment',);
+            }
+
+            // comment_show
+            if (preg_match('#^/comment/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_show')), array (  '_controller' => 'TipddyBackendBundle:Comment:show',));
+            }
+
+            // comment_new
+            if ($pathinfo === '/comment/new') {
+                return array (  '_controller' => 'TipddyBackendBundle:Comment:new',  '_route' => 'comment_new',);
+            }
+
+            // comment_create
+            if ($pathinfo === '/comment/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_comment_create;
+                }
+
+                return array (  '_controller' => 'TipddyBackendBundle:Comment:create',  '_route' => 'comment_create',);
+            }
+            not_comment_create:
+
+            // comment_edit
+            if (preg_match('#^/comment/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_edit')), array (  '_controller' => 'TipddyBackendBundle:Comment:edit',));
+            }
+
+            // comment_update
+            if (preg_match('#^/comment/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_comment_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_update')), array (  '_controller' => 'TipddyBackendBundle:Comment:update',));
+            }
+            not_comment_update:
+
+            // comment_delete
+            if (preg_match('#^/comment/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_comment_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_delete')), array (  '_controller' => 'TipddyBackendBundle:Comment:delete',));
+            }
+            not_comment_delete:
+
+        }
+
         // login
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
