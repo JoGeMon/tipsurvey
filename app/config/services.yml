@@ -13,3 +13,6 @@ services:
         class: Tipddy\BackendBundle\Twig\Extension\UtilExtension
         tags:
             - { name: twig.extension }
+
+imports:
+    - { resource: "@TipddyBackendBundle/Resources/config/services.yml" }

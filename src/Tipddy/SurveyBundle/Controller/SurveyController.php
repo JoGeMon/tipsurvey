@@ -4,6 +4,7 @@ namespace Tipddy\SurveyBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 use Tipddy\SurveyBundle\Entity\Survey;
 use Tipddy\SurveyBundle\Form\SurveyType;
@@ -216,5 +217,25 @@ class SurveyController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    /**
+    * Finds and displays a Survey entity.
+    *
+    */
+    public function questionsAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('TipddySurveyBundle:Survey')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('No existe la encuesta.');
+        }
+
+        $session = $request->getSession();
+        $session->set('survey',$entity->getId());
+        
+        return $this->redirect($this->generateUrl('question'),$session);    
     }
 }

@@ -185,6 +185,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'survey_delete')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\SurveyController::deleteAction',));
             }
 
+            // survey_questions
+            if (preg_match('#^/survey/(?P<id>\\d+)/questions$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'survey_questions')), array (  '_controller' => 'Tipddy\\SurveyBundle\\Controller\\SurveyController::questionsAction',));
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/question')) {
@@ -276,17 +281,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     return $this->redirect($pathinfo.'/', 'comment');
                 }
 
-                return array (  '_controller' => 'TipddyBackendBundle:Comment:index',  '_route' => 'comment',);
+                return array (  '_controller' => 'Tipddy\\BackendBundle\\Controller\\CommentController::indexAction',  '_route' => 'comment',);
             }
 
             // comment_show
             if (preg_match('#^/comment/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_show')), array (  '_controller' => 'TipddyBackendBundle:Comment:show',));
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_show')), array (  '_controller' => 'Tipddy\\BackendBundle\\Controller\\CommentController::showAction',));
             }
 
             // comment_new
             if ($pathinfo === '/comment/new') {
-                return array (  '_controller' => 'TipddyBackendBundle:Comment:new',  '_route' => 'comment_new',);
+                return array (  '_controller' => 'Tipddy\\BackendBundle\\Controller\\CommentController::newAction',  '_route' => 'comment_new',);
             }
 
             // comment_create
@@ -296,13 +301,13 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     goto not_comment_create;
                 }
 
-                return array (  '_controller' => 'TipddyBackendBundle:Comment:create',  '_route' => 'comment_create',);
+                return array (  '_controller' => 'Tipddy\\BackendBundle\\Controller\\CommentController::createAction',  '_route' => 'comment_create',);
             }
             not_comment_create:
 
             // comment_edit
             if (preg_match('#^/comment/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_edit')), array (  '_controller' => 'TipddyBackendBundle:Comment:edit',));
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_edit')), array (  '_controller' => 'Tipddy\\BackendBundle\\Controller\\CommentController::editAction',));
             }
 
             // comment_update
@@ -312,7 +317,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     goto not_comment_update;
                 }
 
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_update')), array (  '_controller' => 'TipddyBackendBundle:Comment:update',));
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_update')), array (  '_controller' => 'Tipddy\\BackendBundle\\Controller\\CommentController::updateAction',));
             }
             not_comment_update:
 
@@ -323,7 +328,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     goto not_comment_delete;
                 }
 
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_delete')), array (  '_controller' => 'TipddyBackendBundle:Comment:delete',));
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'comment_delete')), array (  '_controller' => 'Tipddy\\BackendBundle\\Controller\\CommentController::deleteAction',));
             }
             not_comment_delete:
 

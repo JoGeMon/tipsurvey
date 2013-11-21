@@ -193,6 +193,7 @@ class appDevDebugProjectContainer extends Container
             'templating.loader' => 'getTemplating_LoaderService',
             'templating.locator' => 'getTemplating_LocatorService',
             'templating.name_parser' => 'getTemplating_NameParserService',
+            'tipddy_backend.filterchain' => 'getTipddyBackend_FilterchainService',
             'translation.dumper.csv' => 'getTranslation_Dumper_CsvService',
             'translation.dumper.ini' => 'getTranslation_Dumper_IniService',
             'translation.dumper.mo' => 'getTranslation_Dumper_MoService',
@@ -637,6 +638,7 @@ class appDevDebugProjectContainer extends Container
     {
         $this->services['event_dispatcher'] = $instance = new \Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher($this);
 
+        $instance->addListenerService('kernel_request', array(0 => 'tipddy_backend.filterchain', 1 => 'onKernelrequest'), 0);
         $instance->addListenerService('kernel.controller', array(0 => 'data_collector.router', 1 => 'onKernelController'), 0);
         $instance->addListenerService('kernel.response', array(0 => 'monolog.handler.firephp', 1 => 'onKernelResponse'), 0);
         $instance->addListenerService('kernel.response', array(0 => 'monolog.handler.chromephp', 1 => 'onKernelResponse'), 0);
@@ -1806,17 +1808,14 @@ class appDevDebugProjectContainer extends Container
         $e = $this->get('http_kernel');
         $f = $this->get('security.authentication.manager');
 
-        $g = new \Symfony\Component\HttpFoundation\RequestMatcher('^/survey');
+        $g = new \Symfony\Component\Security\Http\AccessMap();
 
-        $h = new \Symfony\Component\Security\Http\AccessMap();
-        $h->add($g, array(0 => 'ROLE_TIPDDY'), NULL);
+        $h = new \Symfony\Component\Security\Http\HttpUtils($d, $d);
 
-        $i = new \Symfony\Component\Security\Http\HttpUtils($d, $d);
+        $i = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($h, array('always_use_default_target_path' => true, 'default_target_path' => '/dashboard', 'login_path' => 'login', 'target_path_parameter' => '_target_path', 'use_referer' => false));
+        $i->setProviderKey('admin');
 
-        $j = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($i, array('always_use_default_target_path' => true, 'default_target_path' => '/dashboard', 'login_path' => 'login', 'target_path_parameter' => '_target_path', 'use_referer' => false));
-        $j->setProviderKey('admin');
-
-        return $this->services['security.firewall.map.context.admin'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($h, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.chain_provider'), 1 => $this->get('security.user.provider.concrete.in_memory'), 2 => $this->get('security.user.provider.concrete.user_db')), 'admin', $a, $c), 2 => new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $i, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($i, 'login'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => 'login_logout')), 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $i, 'admin', $j, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $i, array('login_path' => 'login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => 'login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '528d33e8058a6', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $h, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $i, 'admin', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $i, 'login', false), NULL, NULL, $a));
+        return $this->services['security.firewall.map.context.admin'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($g, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('security.user.provider.concrete.chain_provider'), 1 => $this->get('security.user.provider.concrete.in_memory'), 2 => $this->get('security.user.provider.concrete.user_db')), 'admin', $a, $c), 2 => new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $h, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($h, 'login'), array('csrf_parameter' => '_csrf_token', 'intention' => 'logout', 'logout_path' => 'login_logout')), 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, new \Symfony\Component\Security\Http\Session\SessionAuthenticationStrategy('migrate'), $h, 'admin', $i, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $h, array('login_path' => 'login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => 'login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '528d5b7024db6', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $g, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $h, 'admin', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $h, 'login', false), NULL, NULL, $a));
     }
 
     /**
@@ -2410,6 +2409,19 @@ class appDevDebugProjectContainer extends Container
     protected function getTemplating_NameParserService()
     {
         return $this->services['templating.name_parser'] = new \Symfony\Bundle\FrameworkBundle\Templating\TemplateNameParser($this->get('kernel'));
+    }
+
+    /**
+     * Gets the 'tipddy_backend.filterchain' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Tipddy\BackendBundle\Listener\SessionControlListener A Tipddy\BackendBundle\Listener\SessionControlListener instance.
+     */
+    protected function getTipddyBackend_FilterchainService()
+    {
+        return $this->services['tipddy_backend.filterchain'] = new \Tipddy\BackendBundle\Listener\SessionControlListener($this, $this->get('session'));
     }
 
     /**
@@ -3141,7 +3153,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.chain_provider'), new \Symfony\Component\Security\Core\User\UserChecker(), 'admin', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('528d33e8058a6')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.chain_provider'), new \Symfony\Component\Security\Core\User\UserChecker(), 'admin', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('528d5b7024db6')), true);
 
         $instance->setEventDispatcher($this->get('event_dispatcher'));
 

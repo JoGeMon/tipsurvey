@@ -28,3 +28,8 @@ survey_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "TipddySurveyBundle:Survey:delete" }
     #requirements: { _method: post|delete }
+
+survey_questions:
+    pattern: /{id}/questions
+    defaults: { _controller: "TipddySurveyBundle:Survey:questions"}
+    requirements: { id: \d+ }
